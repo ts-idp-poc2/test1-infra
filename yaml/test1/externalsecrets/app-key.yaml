@@ -1,0 +1,19 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: app-key
+  namespace: test1
+spec:
+  refreshInterval: 1m           # rate SecretManager pulls GCPSM
+  secretStoreRef:
+    kind: SecretStore
+    name: vault               # name of the SecretStore (or kind specified)
+  target:
+    name: app-key  # name of the k8s Secret to be created
+    template:
+      type: Opaque
+  data:
+    - secretKey: id_rsa
+      remoteRef:
+        key: ns/test1/appkey
+        property: id_rsa
