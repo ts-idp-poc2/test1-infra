@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: test1
+  namespace: test1  # Specify the namespace
+spec:
+  selector:
+    app: test1  # Match pods with the label app=test1
+  ports:
+    - protocol: TCP
+      port: 80  # Port exposed by the service
+      targetPort: 8080  # Port on the container
+  type: ClusterIP  # Default service type (accessible only within the cluster)

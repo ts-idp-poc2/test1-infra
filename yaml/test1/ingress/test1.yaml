@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test1
+  namespace: test1  # Match the namespace of the service
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"  # Force HTTPS
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - test1.idp-poc.tremolo.dev
+  rules:
+    - host: test1.idp-poc.tremolo.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: test1  # Name of the service
+                port:
+                  number: 80  # Target port of the service
